@@ -1,0 +1,112 @@
+<div class="container">
+
+    <div class="lista" fxLayout="row" fxFlex fxLayoutGap="16px" fxLayoutAlign="start start">
+
+        <div fxFlex="328px">
+            <mat-list>
+
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon class="subheader-icon">filter_list</mat-icon>
+                    <div mat-subheader>Filtros</div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <!-- Estilos -->
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon class="subheader-icon">branding_watermark</mat-icon>
+                    <div mat-subheader>Marca</div>
+                </div>
+                <mat-list-item *ngFor="let marca of marcas | async">
+                    <mat-checkbox color="primary">{{marca.nome}}</mat-checkbox>
+                    <div fxFlex>
+                    </div>
+                    <button mat-icon-button color="accent" *ngIf="usuarioAdmin()"
+                        [routerLink]="['/home/marcas', marca.id, 'editar']">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </mat-list-item>
+
+                <button mat-icon-button color="accent" *ngIf="usuarioAdmin()" routerLink='/home/marcas/cadastro'>
+                    <mat-icon>add</mat-icon>
+                </button>
+                <mat-divider></mat-divider>
+
+                <!-- Superfícies -->
+                <div fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon class="subheader-icon">texture</mat-icon>
+                    <div mat-subheader>Cor</div>
+                </div>
+                <mat-list-item *ngFor="let cor of cores | async">
+                    <mat-checkbox color="primary">{{cor.nome}}</mat-checkbox>
+                    <div fxFlex>
+                    </div>
+                    <button mat-icon-button color="accent" *ngIf="usuarioAdmin()"
+                        [routerLink]="['/home/cor', cor.id, 'editar']">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+
+                </mat-list-item>
+                <button mat-icon-button color="accent" *ngIf="usuarioAdmin()" routerLink='/home/cor/cadastro'>
+                    <mat-icon>add</mat-icon>
+                </button>
+
+                <mat-divider></mat-divider>
+
+            </mat-list>
+        </div>
+
+        <div class="artes" fxLayout="row wrap" fxLayoutGap="16px" fxLayoutAlign="start start">
+
+            <mat-card class="produto" *ngFor="let produto of produtos | async">
+
+                <div class="imagem-arte">
+                    <img *ngIf="produto.imagens" [src]="produto.imagens[0]" style="width: 200px; height: 200px;">
+                    <div class="acoes" fxLayout="row">
+                        <button mat-icon-button>
+                            <mat-icon>loupe</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <mat-card-content>
+                    <div fxLayout="row" fxLayoutAlign="start center">
+                        <p class="mat-title" fxFlex>{{produto.nome}}</p>
+                        <p class="mat-subheading-1">R${{produto.valor}}</p>
+                    </div>
+                    <p>{{produto.descricao}}</p>
+                </mat-card-content>
+                <mat-card-actions>
+
+                    <div fxLayout="row">
+
+                        <button mat-icon-button color="accent" *ngIf="usuarioAdmin()" (click)="editarProduto(produto)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" *ngIf="usuarioAdmin()" (click)="editarImagem(produto)">
+                            <mat-icon>photo_library</mat-icon>
+                        </button>
+                        <button mat-icon-button color="accent" (click)="excluir(produto)" *ngIf="usuarioAdmin()">
+                            <mat-icon>close</mat-icon>
+                        </button>
+
+                        <span fxFlex></span>
+
+                        <button mat-button color="primary" routerLink="../carrinho">
+                            <mat-icon>add_shopping_cart</mat-icon>
+                           <span *ngIf="!usuarioAdmin()">COMPRAR</span>
+                        </button>
+
+                    </div>
+
+                </mat-card-actions>
+            </mat-card>
+
+        </div>
+
+    </div>
+</div>
+
+<button class="fixed-fab" mat-fab color="accent" routerLink="cadastro" *ngIf="usuarioAdmin()" style="float: right;">
+    <mat-icon>add</mat-icon>
+</button>

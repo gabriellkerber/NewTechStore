@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "techstore-68e8c": {
+      "hosting": {
+        "TechStore": [
+          "techstore-68e8c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "techstore-68e8c"
+  }
+}
